@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
+
 import List from './List';
 
 const activitiesList = [
@@ -86,9 +87,9 @@ const activitiesList = [
 ];
 
 render(
-  <div>
+  <div className="container">
     <header>
-      <h1>Russell Shurts Code Challenge (React)</h1>
+      <h1>Russell Shurts <small>Code Challenge (React)</small></h1>
       <p>
         Source code: <a href="https://github.com/rshurts/code-challenge-react">
           https://github.com/rshurts/code-challenge-react
