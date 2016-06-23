@@ -1,7 +1,31 @@
-import React, { Component } from 'react';
-import { Button, ButtonToolbar, Collapse, Label, Panel, Glyphicon } from 'react-bootstrap';
+import React, { Component, PropTypes } from 'react';
+import { Button, ButtonToolbar, Collapse, Panel, Glyphicon } from 'react-bootstrap';
 
+import Content from './Content';
 import Metadata from './Metadata';
+
+const propTypes = {
+  // Required props
+  activity_comments: PropTypes.number.isRequired,
+  activity_date: PropTypes.string.isRequired,
+  activity_likes: PropTypes.number.isRequired,
+  activity_shares: PropTypes.number.isRequired,
+  activity_sentiment: PropTypes.number.isRequired,
+  activity_url: PropTypes.string.isRequired,
+  actor_avator: PropTypes.string.isRequired,
+  actor_description: PropTypes.string.isRequired,
+  actor_name: PropTypes.string.isRequired,
+  actor_url: PropTypes.string.isRequired,
+  actor_username: PropTypes.string.isRequired,
+  provider: PropTypes.string.isRequired,
+
+  // Optional props
+  activity_attachment: PropTypes.string,
+  activity_attachment_type: PropTypes.string,
+  activity_latitude: PropTypes.string,
+  activity_longitude: PropTypes.string,
+  activity_message: PropTypes.string,
+};
 
 class Card extends Component {
   constructor() {
@@ -16,15 +40,6 @@ class Card extends Component {
   }
 
   render() {
-    let activityMessage;
-    if (this.props.activity_attachment_type) {
-      activityMessage = (
-        <img src={this.props.activity_attachment} alt={this.props.activity_attachment} />
-      );
-    } else {
-      activityMessage = (<h3>{this.props.activity_message}</h3>);
-    }
-
     let titleSentiment;
     let titleColor;
     if (this.props.activity_sentiment > 0) {
@@ -44,15 +59,19 @@ class Card extends Component {
       <div className="card">
         <Panel header={titleSentiment} bsStyle={titleColor}>
           <div>
-            {activityMessage}
-            <h4>
-              Posted by <a href={this.props.actor_url}>{this.props.actor_name}</a> {' '}
-              on {this.props.activity_date} {' '}
-              to <a href={this.props.activity_url}>{this.props.provider}</a>. {' '}
-              <Label bsStyle="info"><Glyphicon glyph="heart" /> {this.props.activity_likes}</Label> {' '}
-              <Label bsStyle="info"><Glyphicon glyph="share-alt" /> {this.props.activity_shares}</Label> {' '}
-              <Label bsStyle="info"><Glyphicon glyph="comment" /> {this.props.activity_comments}</Label> {' '}
-            </h4>
+            <Content
+              activity_comments={this.props.activity_comments}
+              activity_date={this.props.activity_date}
+              activity_likes={this.props.activity_likes}
+              activity_shares={this.props.activity_shares}
+              activity_url={this.props.activity_url}
+              actor_name={this.props.actor_name}
+              actor_url={this.props.actor_url}
+              provider={this.props.provider}
+              activity_attachment={this.props.activity_attachment}
+              activity_attachment_type={this.props.activity_attachment_type}
+              activity_message={this.props.activity_message}
+            />
           </div>
 
           <div>
@@ -68,6 +87,7 @@ class Card extends Component {
               </Button>
             </ButtonToolbar>
           </div>
+
           <Collapse in={this.state.showMetadata}>
             <div>
               <br />
@@ -87,5 +107,7 @@ class Card extends Component {
     );
   }
 }
+
+Card.propTypes = propTypes;
 
 export default Card;
