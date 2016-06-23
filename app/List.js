@@ -1,24 +1,19 @@
-import React, { Component } from 'react';
+import React, { PropTypes } from 'react';
 
 import Card from './Card';
 
-class List extends Component {
-  render() {
-    let activities = this.props.activities.map((activity) => {
-      return (
-        <Card
-          key={activity.id}
-          {...activity}
-        />
-      );
-    });
+const propTypes = {
+  activities: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
-    return (
-      <div>
-        {activities}
-      </div>
-    );
-  }
+function List(props) {
+  let activities = props.activities.map((activity) => {
+    return <Card key={activity.id} {...activity} />;
+  });
+
+  return <div>{activities}</div>;
 }
+
+List.propTypes = propTypes;
 
 export default List;
