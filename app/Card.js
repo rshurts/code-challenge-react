@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { Button, ButtonToolbar, Collapse, Label, Panel, Glyphicon } from 'react-bootstrap';
 
-import { Button, ButtonToolbar, Collapse, Image, Label, Media, Panel, Glyphicon, Well } from 'react-bootstrap';
+import Metadata from './Metadata';
 
 class Card extends Component {
   constructor() {
-    super(...arguments);
+    super();
     this.state = {
       showMetadata: false,
     };
@@ -16,25 +16,6 @@ class Card extends Component {
   }
 
   render() {
-    let cardMetadata = (
-      <div>
-        <Well>
-          <Media>
-            <Media.Left>
-              <Image src={this.props.actor_avator} alt={this.props.actor_username} height="160" width="160" />
-            </Media.Left>
-            <Media.Body>
-              <p><strong>Name:</strong> {this.props.actor_name}</p>
-              <p><strong>Description:</strong> {this.props.actor_description}</p>
-              <p><strong>Username:</strong> {this.props.actor_username}</p>
-              <p><strong>Profile:</strong> <a href={this.props.actor_url}>{this.props.actor_url}</a></p>
-              <p><strong>Location:</strong> {this.props.activity_longitude} {this.props.activity_latitude}</p>
-            </Media.Body>
-          </Media>
-        </Well>
-      </div>
-    );
-
     let activityMessage;
     if (this.props.activity_attachment_type) {
       activityMessage = (
@@ -47,13 +28,13 @@ class Card extends Component {
     let titleSentiment;
     let titleColor;
     if (this.props.activity_sentiment > 0) {
-      titleSentiment = 'Positive';
+      titleSentiment = (<h2>Positive</h2>);
       titleColor = 'success';
     } else if (this.props.activity_sentiment < 0) {
-      titleSentiment = 'Negative';
+      titleSentiment = (<h2>Negative</h2>);
       titleColor = 'danger';
     } else {
-      titleSentiment = 'Neutral';
+      titleSentiment = (<h2>Neutral</h2>);
       titleColor = 'warning';
     }
 
@@ -88,17 +69,19 @@ class Card extends Component {
             </ButtonToolbar>
           </div>
           <Collapse in={this.state.showMetadata}>
-            {cardMetadata}
+            <div>
+              <br />
+              <Metadata
+                activity_latitude={this.props.activity_latitude}
+                activity_longitude={this.props.activity_longitude}
+                actor_avator={this.props.actor_avator}
+                actor_description={this.props.actor_description}
+                actor_name={this.props.actor_name}
+                actor_url={this.props.actor_url}
+                actor_username={this.props.actor_username}
+              />
+            </div>
           </Collapse>
-          {/*
-          <ReactCSSTransitionGroup
-            transitionName="toggle"
-            transitionEnterTimeout={300}
-            transitionLeaveTimeout={300}
-          >
-            {cardMetadata}
-            </ReactCSSTransitionGroup>
-            */}
         </Panel>
       </div>
     );
