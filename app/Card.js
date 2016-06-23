@@ -20,12 +20,12 @@ class Card extends Component {
     if (this.state.showMetadata) {
       cardMetadata = (
         <div className="card-metadata">
-            <img src={this.props.actor_avator} alt={this.props.actor_username} />
+          <img src={this.props.actor_avator} alt={this.props.actor_username} />
           <ul>
             <li>Name: {this.props.actor_name}</li>
             <li>Description: {this.props.actor_description}</li>
             <li>Username: {this.props.actor_username}</li>
-            <li>Profile: {this.props.actor_url}</li>
+            <li>Profile: <a href={this.props.actor_url}>{this.props.actor_url}</a></li>
             <li>Location: {this.props.activity_longitude} {this.props.activity_latitude}</li>
           </ul>
         </div>
@@ -34,7 +34,9 @@ class Card extends Component {
 
     let activityMessage;
     if (this.props.activity_attachment_type) {
-      activityMessage = (<img src={this.props.activity_attachment} alt={this.props.activity_attachment} />);
+      activityMessage = (
+        <img src={this.props.activity_attachment} alt={this.props.activity_attachment} />
+      );
     } else {
       activityMessage = (<p>{this.props.activity_message}</p>);
     }
@@ -57,25 +59,34 @@ class Card extends Component {
     return (
       <div className="card">
         <Panel header={titleSentiment} bsStyle={titleColor}>
-          <div className="activity-content">
+          <div>
             {activityMessage}
-            <p>Posted by {this.props.actor_name} on {this.props.provider} on {this.props.activity_date}.</p>
+            <p>
+              Posted by <a href={this.props.actor_url}>{this.props.actor_name}</a> {' '}
+              on <a href={this.props.activity_url}>{this.props.provider}</a> {' '}
+              on {this.props.activity_date}.
+            </p>
           </div>
 
-          <div className="activity-reach">
+          <div>
             <ul>
-              <li>Likes: {this.props.activity_likes}</li>
-              <li>Shares: {this.props.activity_shares}</li>
-              <li>Comments: {this.props.activity_comments}</li>
+              <li>&#10084; {this.props.activity_likes}</li>
+              <li>&#10150; {this.props.activity_shares}</li>
+              <li>&#9998; {this.props.activity_comments}</li>
             </ul>
           </div>
 
-          <div className="interactions">
+          <div>
             <ButtonToolbar>
-              <Button>Like</Button>
-              <Button>Share</Button>
-              <Button>Comment</Button>
-              <Button bsStyle="info" onClick={this.toggleMetadata.bind(this)}>{metadataTitle}</Button>
+              <Button>&#10084; Like</Button>
+              <Button>&#10150; Share</Button>
+              <Button>&#9998; Comment</Button>
+              <Button
+                bsStyle="info"
+                onClick={this.toggleMetadata.bind(this)}
+              >
+                {metadataTitle}
+              </Button>
             </ButtonToolbar>
           </div>
 
