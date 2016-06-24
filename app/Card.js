@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Button, ButtonToolbar, Collapse, Panel, Glyphicon } from 'react-bootstrap';
 
 import Content from './Content';
+import Interactions from './Interactions';
 import Metadata from './Metadata';
 
 const propTypes = {
@@ -55,36 +56,28 @@ class Card extends Component {
     return (
       <div className="card">
         <Panel header={titleSentiment} bsStyle={titleColor}>
-          <div>
-            <Content
-              activity_comments={this.props.activity_comments}
-              activity_date={this.props.activity_date}
-              activity_likes={this.props.activity_likes}
-              activity_shares={this.props.activity_shares}
-              activity_url={this.props.activity_url}
-              actor_name={this.props.actor_name}
-              actor_url={this.props.actor_url}
-              provider={this.props.provider}
-              activity_attachment={this.props.activity_attachment}
-              activity_attachment_type={this.props.activity_attachment_type}
-              activity_message={this.props.activity_message}
-            />
-          </div>
+          <Content
+            activity_comments={this.props.activity_comments}
+            activity_date={this.props.activity_date}
+            activity_likes={this.props.activity_likes}
+            activity_shares={this.props.activity_shares}
+            activity_url={this.props.activity_url}
+            actor_name={this.props.actor_name}
+            actor_url={this.props.actor_url}
+            provider={this.props.provider}
+            activity_attachment={this.props.activity_attachment}
+            activity_attachment_type={this.props.activity_attachment_type}
+            activity_message={this.props.activity_message}
+          />
 
-          <div>
-            <ButtonToolbar>
-              <Button><Glyphicon glyph="heart" /> Like</Button>
-              <Button><Glyphicon glyph="share-alt" /> Share</Button>
-              <Button><Glyphicon glyph="comment" /> Comment</Button>
-              <Button bsStyle="info" onClick={this.toggleMetadata}>
-                {this.state.showMetadata ? 'Hide Metadata' : 'Show Metadata'}
-              </Button>
-            </ButtonToolbar>
-          </div>
+          <Interactions
+            showMetadata={this.state.showMetadata}
+            metadataCallbacks={{ toggle: this.toggleMetadata.bind(this) }}
+          />
 
           <Collapse in={this.state.showMetadata}>
             <div>
-              <br />
+              <br /> {/* Quick fix to make spacing look better. */}
               <Metadata
                 activity_latitude={this.props.activity_latitude}
                 activity_longitude={this.props.activity_longitude}
