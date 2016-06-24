@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Button, ButtonToolbar, Collapse, Panel, Glyphicon } from 'react-bootstrap';
+import { Collapse, Panel } from 'react-bootstrap';
 
 import Content from './Content';
 import Interactions from './Interactions';
