@@ -102,4 +102,6 @@ render(
       </p>
     </header>
     <List activities={activitiesList} />
-  </div>, document.getElementById('root'));
+  </div>,
+  document.getElementById('root')
+);

@@ -30,9 +30,8 @@ const propTypes = {
 class Card extends Component {
   constructor() {
     super();
-    this.state = {
-      showMetadata: false,
-    };
+    this.state = { showMetadata: false };
+    this.toggleMetadata = this.toggleMetadata.bind(this);
   }
 
   toggleMetadata() {
@@ -52,8 +51,6 @@ class Card extends Component {
       titleSentiment = (<h2>Neutral</h2>);
       titleColor = 'warning';
     }
-
-    let metadataTitle = this.state.showMetadata ? 'Hide Metadata' : 'Show Metadata';
 
     return (
       <div className="card">
@@ -79,11 +76,8 @@ class Card extends Component {
               <Button><Glyphicon glyph="heart" /> Like</Button>
               <Button><Glyphicon glyph="share-alt" /> Share</Button>
               <Button><Glyphicon glyph="comment" /> Comment</Button>
-              <Button
-                bsStyle="info"
-                onClick={this.toggleMetadata.bind(this)}
-              >
-                {metadataTitle}
+              <Button bsStyle="info" onClick={this.toggleMetadata}>
+                {this.state.showMetadata ? 'Hide Metadata' : 'Show Metadata'}
               </Button>
             </ButtonToolbar>
           </div>
