@@ -72,7 +72,7 @@ class Card extends Component {
 
           <Interactions
             showMetadata={this.state.showMetadata}
-            metadataCallbacks={{ toggle: this.toggleMetadata.bind(this) }}
+            metadataCallbacks={{ toggle: this.toggleMetadata }}
           />
 
           <Collapse in={this.state.showMetadata}>
